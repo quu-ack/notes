@@ -8,15 +8,15 @@ This procedure details the steps to remove `/* bplint-disable */` annotations fr
 
 The `bp lint` command was implemented to validate integration definitions against best practices and ensure compliance with ZUI (Zod UI) schema requirements. However, some integrations had linting failures, and to save time, these rules were temporarily disabled using `/* bplint-disable */` annotations.
 
-Now, we want to make all integrations compliant with these enforced rules. The new ZUI transformer provides better schema validation and ensures integrations follow the correct structure.
+Now, we want to make all integrations compliant with these enforced rules.
 
 ## What is ZUI?
 
-ZUI (Zod UI) is Botpress's schema validation system built on top of [Zod](https://zod.dev/), a TypeScript-first schema validation library. The ZUI implementation is located at `/botpress/packages/sdk/src/zui.ts`.
+ZUI (Zod UI) is Botpress's system primarily used for schema conversation and generation, built on top of [Zod](https://zod.dev/), a TypeScript-first schema validation library. The ZUI implementation is located at `/botpress/packages/sdk/src/zui.ts`.
 
 ### How ZUI Works
 
-1. **Schema Definition**: ZUI uses Zod schemas to define the structure of integration configurations, action inputs/outputs, channel messages, and events.
+1. **Schema Definition**: ZUI uses Zod schemas to generate conversation schemas and define the structure of integration configurations, action inputs/outputs, channel messages, and events.
 
 2. **Type Safety**: By using Zod schemas, ZUI provides:
    - Runtime validation of data
@@ -34,12 +34,13 @@ ZUI (Zod UI) is Botpress's schema validation system built on top of [Zod](https:
    - `.describe()` - Adds descriptions for UI display
    - Schema merging utilities for combining schemas
 
-The ZUI transformer improves upon the legacy version by:
-- Better handling of schema properties
-- Proper placement of descriptions
+The ZUI transformer causes changes compared to the legacy version by:
+- Moving descriptions
 - Removal of unnecessary `schema` keys
-- Elimination of `x-zui` annotations
-- More accurate validation
+- Elimination of `x-zui` annotations (and other minors changes)
+
+Note: Watch out for weird changes
+Sometimes some changes should be correct but are not detected compliant. This needs to be bring to the team attention.
 
 ## Step-by-Step Procedure
 
@@ -177,7 +178,7 @@ rm legacy-output.json new-output.json
 
 1. **Weird behavior or problems**: 
    - Comment on the parent issue (SH-191)
-   - Ask `@faucon` for assistance
+   - Ask `@faucon` or `@quack` for assistance
 
 2. **Linting errors persist**:
    - Review the error messages carefully
